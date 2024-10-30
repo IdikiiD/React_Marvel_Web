@@ -5,7 +5,7 @@ import "./style/style.scss";
 
 const marvelService = new MarvelService();
 
-marvelService.getCharacter('1010338').then(res => res.data.results.forEach(item => console.log(item.name)))
+marvelService.getCharacter('1010338').then(char => console.log(char.name))
 
 const container = document.getElementById("root");
 const root = createRoot(container);

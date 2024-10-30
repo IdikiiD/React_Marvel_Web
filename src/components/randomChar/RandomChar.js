@@ -10,31 +10,24 @@ constructor(props) {
     this.updateChar()
 }
     state = {
-        name:null,
-        desc:null,
-        thumbnail:null,
-        homepage:null,
-        wiki:null,
+      char : {}
     }
     marvelService = new MarvelService();
 
-    updateChar = (res) => {
+    updateChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        this.marvelService.getCharacter(id).then(
-            res => {
-                this.setState({
-                    name:res.data.results[0].name,
-                    desc:res.data.results[0].desc,
-                    thumbnail:res.data.results[0].thumbnail.path+ '.' + res.data.results[0].thumbnail.extension,
-                    homepage:res.data.results[0].url,
-                    wiki:res.data.results[0].urls[1].url,
-                })
-            }
-        )
+        this.marvelService
+            .getCharacter(id)
+            .then(this.onCharLoaded)
 }
+    onCharLoaded = (char)=>{
+        this.setState({char})
+        console.log({char})
+    }
+
 
     render(){
-        const { name, desc, thumbnail, homepage, wiki} = this.state;
+        const { char: {name, description, thumbnail, homepage, wiki}} = this.state;
         return (
             <div className="randomchar">
                 <div className="randomchar__block">
@@ -42,14 +35,14 @@ constructor(props) {
                     <div className="randomchar__info">
                         <p className="randomchar__name">{name}</p>
                         <p className="randomchar__descr">
-                            {desc}
+                            {description}
                         </p>
                         <div className="randomchar__btns">
-                            <a href="#" className="button button__main">
-                                <div className="inner">{homepage}</div>
+                            <a href={homepage} className="button button__main">
+                                <div className="inner">homepage</div>
                             </a>
-                            <a href="#" className="button button__secondary">
-                                <div className="inner">{wiki}</div>
+                            <a href={wiki} className="button button__secondary">
+                                <div className="inner">wiki</div>
                             </a>
                         </div>
                     </div>
