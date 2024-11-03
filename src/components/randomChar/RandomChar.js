@@ -1,5 +1,5 @@
 import './randomChar.scss';
-import thor from '../../resources/img/thor.jpeg';
+
 import mjolnir from '../../resources/img/mjolnir.png';
 import MarvelService from "../../server/Server";
 import {Component} from "react";
@@ -7,15 +7,16 @@ import Spinner from "../../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
 class RandomChar extends Component {
-    constructor(props) {
-        super(props);
-        this.updateChar()
-    }
+
 
     state = {
         char: {},
         loading: true,
         error: false
+    }
+    componentDidMount() {
+        this.updateChar();
+
     }
     marvelService = new MarvelService();
 
