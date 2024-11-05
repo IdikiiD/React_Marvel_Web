@@ -7,17 +7,16 @@ import Spinner from "../../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 
 class RandomChar extends Component {
-
-
     state = {
         char: {},
         loading: true,
         error: false
     }
+
     componentDidMount() {
         this.updateChar();
-
     }
+
     marvelService = new MarvelService();
 
     updateChar = () => {

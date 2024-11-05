@@ -19,14 +19,18 @@ class CharList extends Component {
     updateChar = () => {
         this.setState({ loading: true, error: false });
 
-        // Генерация массива из 9 случайных id персонажей
-        const promises = Array.from({ length: 9 }, () => {
+
+
+        const newSet = new Set()
+        while (newSet.size < 9) {
             const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-            return this.marvelService.getCharacter(id);
-        });
+            newSet.add(id);
+        }
+
+        const mySet  = new Set( Array.from(  newSet ).map((id) => this.marvelService.getCharacter(id)));
 
         // Выполнение всех запросов параллельно и обновление состояния
-        Promise.all(promises)
+        Promise.all(mySet)
             .then((newChars) => {
                 this.setState(({ char }) => ({
                     char: [...char, ...newChars],
